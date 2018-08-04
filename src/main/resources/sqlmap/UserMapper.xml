@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.repository.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.mt.pojo.User">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="MOBILE" jdbcType="VARCHAR" property="mobile"/>
+        <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from MT_USER
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.mt.pojo.User">
+        insert into MT_USER (ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, LAST_LOGIN_TIME, REMARK)
+        values (
+                #{account,jdbcType=VARCHAR},
+                #{password,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR},
+                #{email,jdbcType=VARCHAR},
+                #{mobile,jdbcType=VARCHAR},
+                #{lastLoginTime,jdbcType=TIMESTAMP},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.mt.pojo.User">
+        update MT_USER
+        set ACCOUNT         = #{account,jdbcType=VARCHAR},
+            PASSWORD        = #{password,jdbcType=VARCHAR},
+            NAME            = #{name,jdbcType=VARCHAR},
+            EMAIL           = #{email,jdbcType=VARCHAR},
+            MOBILE          = #{mobile,jdbcType=VARCHAR},
+            LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+            REMARK          = #{remark,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select ID,
+               ACCOUNT,
+               PASSWORD,
+               NAME,
+               EMAIL,
+               MOBILE,
+               LAST_LOGIN_TIME,
+               REMARK
+        from MT_USER
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select ID,
+               ACCOUNT,
+               PASSWORD,
+               NAME,
+               EMAIL,
+               MOBILE,
+               LAST_LOGIN_TIME,
+               REMARK
+        from MT_USER
+    </select>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.repository.NewsMapper">
+
+    <resultMap id="BaseResultMap" type="com.mt.pojo.News">
+        <id column="NEWS_ID" jdbcType="INTEGER" property="newsId"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="LINK" jdbcType="VARCHAR" property="link"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from MT_NEWS
+        where NEWS_ID = #{newsId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.mt.pojo.News">
+        insert into MT_NEWS (TITLE, LINK, STATUS, CREATE_TIME, MODIFY_TIME, REMARK)
+        values (
+                #{title,jdbcType=VARCHAR},
+                #{link,jdbcType=VARCHAR},
+                #{status,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{modifyTime,jdbcType=TIMESTAMP},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.mt.pojo.News">
+        update MT_NEWS
+        set TITLE       = #{title,jdbcType=VARCHAR},
+            LINK        = #{link,jdbcType=VARCHAR},
+            STATUS      = #{status,jdbcType=INTEGER},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            REMARK      = #{remark,jdbcType=VARCHAR}
+        where NEWS_ID = #{newsId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select NEWS_ID, TITLE, LINK, STATUS, CREATE_TIME, MODIFY_TIME, REMARK
+        from MT_NEWS
+        where NEWS_ID = #{newsId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select NEWS_ID, TITLE, LINK, STATUS, CREATE_TIME, MODIFY_TIME, REMARK
+        from MT_NEWS
+    </select>
+</mapper>

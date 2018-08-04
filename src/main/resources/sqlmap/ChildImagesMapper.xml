@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.repository.ChildImagesMapper">
+
+    <resultMap id="BaseResultMap" type="com.mt.pojo.ChildImages">
+        <id column="CHILD_IMAGE_ID" jdbcType="INTEGER" property="childImageId"/>
+        <result column="IMAGE_ID" jdbcType="INTEGER" property="imageId"/>
+        <result column="IMAGE_PATH" jdbcType="VARCHAR" property="imagePath"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <sql id="columns">
+        CHILD_IMAGE_ID, IMAGE_ID, IMAGE_PATH, REMARK
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from MT_CHILD_IMAGES
+        where CHILD_IMAGE_ID = #{childImageId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.mt.pojo.ChildImages">
+        insert into MT_CHILD_IMAGES (IMAGE_ID, IMAGE_PATH, REMARK)
+        values (
+                #{imageId,jdbcType=INTEGER},
+                #{imagePath,jdbcType=VARCHAR},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.mt.pojo.ChildImages">
+        update MT_CHILD_IMAGES
+        set IMAGE_ID   = #{imageId,jdbcType=INTEGER},
+            IMAGE_PATH = #{imagePath,jdbcType=VARCHAR},
+            REMARK     = #{remark,jdbcType=VARCHAR}
+        where CHILD_IMAGE_ID = #{childImageId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select CHILD_IMAGE_ID, IMAGE_ID, IMAGE_PATH, REMARK
+        from MT_CHILD_IMAGES
+        where CHILD_IMAGE_ID = #{childImageId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select <include refid="columns" />
+        from MT_CHILD_IMAGES
+    </select>
+
+    <select id="listByImageId" resultType="com.mt.pojo.ChildImages">
+        select
+          <include refid="columns" />
+        from MT_CHILD_IMAGES
+        where IMAGE_ID = #{imageId}
+    </select>
+</mapper>

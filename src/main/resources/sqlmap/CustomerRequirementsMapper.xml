@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mt.repository.CustomerRequirementsMapper">
+
+    <resultMap id="BaseResultMap" type="com.mt.pojo.CustomerRequirements">
+        <id column="REQ_ID" jdbcType="INTEGER" property="reqId"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="CONTACT_WAY" jdbcType="VARCHAR" property="contactWay"/>
+        <result column="PROJECT_TITLE" jdbcType="VARCHAR" property="projectTitle"/>
+        <result column="PROJECT_DETAIL" jdbcType="VARCHAR" property="projectDetail"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from MT_CUSTOMER_REQUIREMENTS
+        where REQ_ID = #{reqId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.mt.pojo.CustomerRequirements">
+        insert into MT_CUSTOMER_REQUIREMENTS (NAME, CONTACT_WAY, PROJECT_TITLE, PROJECT_DETAIL, STATUS, REMARK)
+        values (
+                #{name,jdbcType=VARCHAR},
+                #{contactWay,jdbcType=VARCHAR},
+                #{projectTitle,jdbcType=VARCHAR},
+                #{projectDetail,jdbcType=VARCHAR},
+                #{status,jdbcType=VARCHAR},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.mt.pojo.CustomerRequirements">
+        update MT_CUSTOMER_REQUIREMENTS
+        set NAME           = #{name,jdbcType=VARCHAR},
+            CONTACT_WAY    = #{contactWay,jdbcType=VARCHAR},
+            PROJECT_TITLE  = #{projectTitle,jdbcType=VARCHAR},
+            PROJECT_DETAIL = #{projectDetail,jdbcType=VARCHAR},
+            STATUS         = #{status,jdbcType=VARCHAR},
+            REMARK         = #{remark,jdbcType=VARCHAR}
+        where REQ_ID = #{reqId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select REQ_ID, NAME, CONTACT_WAY, PROJECT_TITLE, PROJECT_DETAIL, STATUS, REMARK
+        from MT_CUSTOMER_REQUIREMENTS
+        where REQ_ID = #{reqId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select REQ_ID, NAME, CONTACT_WAY, PROJECT_TITLE, PROJECT_DETAIL, STATUS, REMARK
+        from MT_CUSTOMER_REQUIREMENTS
+    </select>
+</mapper>
