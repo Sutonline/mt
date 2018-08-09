@@ -50,4 +50,24 @@
         select NEWS_ID, TITLE, LINK, STATUS, CREATE_TIME, MODIFY_TIME, REMARK
         from MT_NEWS
     </select>
+
+    <sql id="baseSelect">
+        select NEWS_ID, TITLE, LINK, STATUS, CREATE_TIME, MODIFY_TIME, REMARK
+        from MT_NEWS
+    </sql>
+
+    <select id="listPageByQuery" resultType="com.mt.pojo.News">
+        <include refid="baseSelect" />
+        <if test="page != null and page.pageSize != null and page.offset != null">
+            limit  #{page.offset}, #{page.pageSize}
+        </if>
+        <if test="query.orderBy != null">
+            order by ${query.orderBy}
+        </if>
+    </select>
+    <select id="countByQuery" resultType="java.lang.Long">
+        select count(*)
+        from MT_NEWS
+    </select>
+
 </mapper>

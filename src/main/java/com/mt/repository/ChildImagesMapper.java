@@ -16,8 +16,11 @@ public interface ChildImagesMapper {
 
     List<ChildImages> selectAll();
 
-    List<ChildImages> listByImageId(Long imageId);
+    List<ChildImages> listByImageId(Integer imageId);
+
+    void deleteByImageId(Integer imageId);
 
     int updateByPrimaryKey(ChildImages record);
 
+    void bulkInsert(List<ChildImages> recordList);
 }

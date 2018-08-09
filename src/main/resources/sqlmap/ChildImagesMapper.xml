@@ -19,6 +19,12 @@
         where CHILD_IMAGE_ID = #{childImageId,jdbcType=INTEGER}
     </delete>
 
+    <delete id="deleteByImageId">
+        delete
+        from MT_CHILD_IMAGES
+        where IMAGE_ID = #{imageId}
+    </delete>
+
     <insert id="insert" parameterType="com.mt.pojo.ChildImages">
         insert into MT_CHILD_IMAGES (IMAGE_ID, IMAGE_PATH, REMARK)
         values (
@@ -52,4 +58,14 @@
         from MT_CHILD_IMAGES
         where IMAGE_ID = #{imageId}
     </select>
+
+    <insert id="bulkInsert" parameterType="list">
+        insert into MT_CHILD_IMAGES (IMAGE_ID, IMAGE_PATH, REMARK)
+        values
+        <foreach collection="list" item="item" index="idx" separator=",">
+           (#{item.imageId,jdbcType=INTEGER},
+            #{item.imagePath,jdbcType=VARCHAR},
+            #{item.remark,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
 </mapper>

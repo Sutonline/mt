@@ -32,9 +32,10 @@ class ImageMapperTest extends Specification {
     }
 
     def "save record"() {
-        def images = mockImages();
+        def images = mockImages()
         when:
             def i = imagesMapper.insert(images)
+            println(images)
         then:
             i == 1
     }

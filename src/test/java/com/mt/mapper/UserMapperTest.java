@@ -1,6 +1,7 @@
 package com.mt.mapper;
 
 import com.mt.ManApplication;
+import com.mt.helper.PasswordHelper;
 import com.mt.pojo.User;
 import com.mt.repository.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +28,13 @@ public class UserMapperTest {
     @Test
     public void insert() {
         User user = new User();
-        user.setAccount("xxx");
-        user.setPassword("hahaha");
-        user.setEmail("流量费打发xxx");
-        user.setMobile("113131");
-        user.setName("HAHA");
-        user.setRemark("fdklasjfljdka");
+        user.setAccount("admin");
+        String passoword = PasswordHelper.encrypt("admin");
+        user.setPassword(passoword);
+        user.setEmail("yongkangchn@126.com");
+        user.setMobile("13121269980");
+        user.setName("管理员");
+        user.setRemark("");
         userMapper.insert(user);
     }
 

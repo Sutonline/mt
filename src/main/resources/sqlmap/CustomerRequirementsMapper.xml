@@ -50,4 +50,31 @@
         select REQ_ID, NAME, CONTACT_WAY, PROJECT_TITLE, PROJECT_DETAIL, STATUS, REMARK
         from MT_CUSTOMER_REQUIREMENTS
     </select>
+
+    <sql id="select">
+        SELECT
+          REQ_ID, NAME, CONTACT_WAY, PROJECT_TITLE, PROJECT_DETAIL, STATUS, REMARK
+        FROM MT_CUSTOMER_REQUIREMENTS
+    </sql>
+
+    <sql id="condition">
+        <where>
+
+        </where>
+    </sql>
+
+    <select id="listPage" resultType="com.mt.pojo.CustomerRequirements">
+        <include refid="select" />
+        <if test="page != null and page.pageSize != null and page.offset != null">
+            limit  #{page.offset}, #{page.pageSize}
+        </if>
+        <if test="query.orderBy != null">
+            order by ${query.orderBy}
+        </if>
+    </select>
+    <select id="countByQuery" resultType="java.lang.Long">
+        select count(*) from MT_CUSTOMER_REQUIREMENTS
+    </select>
+
+
 </mapper>

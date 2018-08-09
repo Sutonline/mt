@@ -56,6 +56,19 @@
         where ID = #{id,jdbcType=INTEGER}
     </select>
 
+    <select id="selectByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select ID,
+               ACCOUNT,
+               PASSWORD,
+               NAME,
+               EMAIL,
+               MOBILE,
+               LAST_LOGIN_TIME,
+               REMARK
+        from MT_USER
+        where ACCOUNT = #{account}
+    </select>
+
     <select id="selectAll" resultMap="BaseResultMap">
         select ID,
                ACCOUNT,

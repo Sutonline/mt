@@ -2,59 +2,123 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mt.repository.ImagesMapper">
 
-  <resultMap id="BaseResultMap" type="com.mt.pojo.Images">
-    <id column="IMAGE_ID" jdbcType="INTEGER" property="imageId" />
-    <result column="TYPE" jdbcType="INTEGER" property="type" />
-    <result column="CHANNEL" jdbcType="INTEGER" property="channel" />
-    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="SHORT_TITLE" jdbcType="VARCHAR" property="shortTitle" />
-    <result column="SORT_ORDER" jdbcType="INTEGER" property="sortOrder" />
-    <result column="PUBLISH_TIME" jdbcType="TIMESTAMP" property="publishTime" />
-    <result column="STATUS" jdbcType="INTEGER" property="status" />
-    <result column="THUMBNAIL" jdbcType="VARCHAR" property="thumbnail" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.mt.pojo.Images">
+        <id column="IMAGE_ID" jdbcType="INTEGER" property="imageId"/>
+        <result column="TYPE" jdbcType="INTEGER" property="type"/>
+        <result column="CHANNEL" jdbcType="INTEGER" property="channel"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="SHORT_TITLE" jdbcType="VARCHAR" property="shortTitle"/>
+        <result column="SORT_ORDER" jdbcType="INTEGER" property="sortOrder"/>
+        <result column="PUBLISH_TIME" jdbcType="TIMESTAMP" property="publishTime"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="THUMBNAIL" jdbcType="VARCHAR" property="thumbnail"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from MT_IMAGES
-    where IMAGE_ID = #{imageId,jdbcType=INTEGER}
-  </delete>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from MT_IMAGES
+        where IMAGE_ID = #{imageId,jdbcType=INTEGER}
+    </delete>
 
-  <insert id="insert" parameterType="com.mt.pojo.Images">
-    insert into MT_IMAGES (TYPE, CHANNEL,
-      TITLE, SHORT_TITLE, SORT_ORDER, 
-      PUBLISH_TIME, STATUS, THUMBNAIL, 
-      REMARK)
-    values (#{type,jdbcType=INTEGER}, #{channel,jdbcType=INTEGER},
-      #{title,jdbcType=VARCHAR}, #{shortTitle,jdbcType=VARCHAR}, #{sortOrder,jdbcType=INTEGER}, 
-      #{publishTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
-  </insert>
+    <insert id="insert" parameterType="com.mt.pojo.Images" useGeneratedKeys="true" keyProperty="imageId">
+        insert into MT_IMAGES (TYPE, CHANNEL, TITLE, SHORT_TITLE, SORT_ORDER, PUBLISH_TIME, STATUS, THUMBNAIL, REMARK)
+        values (#{type,jdbcType=INTEGER},
+                #{channel,jdbcType=INTEGER},
+                #{title,jdbcType=VARCHAR},
+                #{shortTitle,jdbcType=VARCHAR},
+                #{sortOrder,jdbcType=INTEGER},
+                #{publishTime,jdbcType=TIMESTAMP},
+                #{status,jdbcType=INTEGER},
+                #{thumbnail,jdbcType=VARCHAR},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.mt.pojo.Images">
-    update MT_IMAGES
-    set TYPE = #{type,jdbcType=INTEGER},
-      CHANNEL = #{channel,jdbcType=INTEGER},
-      TITLE = #{title,jdbcType=VARCHAR},
-      SHORT_TITLE = #{shortTitle,jdbcType=VARCHAR},
-      SORT_ORDER = #{sortOrder,jdbcType=INTEGER},
-      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=INTEGER},
-      THUMBNAIL = #{thumbnail,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR}
-    where IMAGE_ID = #{imageId,jdbcType=INTEGER}
-  </update>
+    <update id="updateByPrimaryKey" parameterType="com.mt.pojo.Images">
+        update MT_IMAGES
+        set TYPE         = #{type,jdbcType=INTEGER},
+            CHANNEL      = #{channel,jdbcType=INTEGER},
+            TITLE        = #{title,jdbcType=VARCHAR},
+            SHORT_TITLE  = #{shortTitle,jdbcType=VARCHAR},
+            SORT_ORDER   = #{sortOrder,jdbcType=INTEGER},
+            PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            STATUS       = #{status,jdbcType=INTEGER},
+            THUMBNAIL    = #{thumbnail,jdbcType=VARCHAR},
+            REMARK       = #{remark,jdbcType=VARCHAR}
+        where IMAGE_ID = #{imageId,jdbcType=INTEGER}
+    </update>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select IMAGE_ID, TYPE, CHANNEL, TITLE, SHORT_TITLE, SORT_ORDER, PUBLISH_TIME, STATUS, 
-    THUMBNAIL, REMARK
-    from MT_IMAGES
-    where IMAGE_ID = #{imageId,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select IMAGE_ID,
+               TYPE,
+               CHANNEL,
+               TITLE,
+               SHORT_TITLE,
+               SORT_ORDER,
+               PUBLISH_TIME,
+               STATUS,
+               THUMBNAIL,
+               REMARK
+        from MT_IMAGES
+        where IMAGE_ID = #{imageId,jdbcType=INTEGER}
+    </select>
 
-  <select id="selectAll" resultMap="BaseResultMap">
-    select IMAGE_ID, TYPE, CHANNEL, TITLE, SHORT_TITLE, SORT_ORDER, PUBLISH_TIME, STATUS, 
-    THUMBNAIL, REMARK
-    from MT_IMAGES
-  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select IMAGE_ID,
+               TYPE,
+               CHANNEL,
+               TITLE,
+               SHORT_TITLE,
+               SORT_ORDER,
+               PUBLISH_TIME,
+               STATUS,
+               THUMBNAIL,
+               REMARK
+        from MT_IMAGES
+    </select>
+
+    <sql id="select">
+        select IMAGE_ID,
+               TYPE,
+               CHANNEL,
+               TITLE,
+               SHORT_TITLE,
+               SORT_ORDER,
+               PUBLISH_TIME,
+               STATUS,
+               THUMBNAIL,
+               REMARK
+        from MT_IMAGES
+    </sql>
+
+    <sql id="condition">
+        <where>
+            1 = 1
+            <if test="query.imageId != null">
+                AND IMAGE_ID = #{query.imageId}
+            </if>
+            <if test="query.type != null">
+                AND TYPE = #{query.type}
+            </if>
+            <if test="query.channel != null">
+                AND CHANNEL = #{query.channel}
+            </if>
+        </where>
+    </sql>
+
+    <select id="listPageByQuery" resultType="com.mt.pojo.Images">
+        <include refid="select" />
+        <include refid="condition" />
+        <if test="page != null and page.pageSize != null and page.offset != null">
+            limit  #{page.offset}, #{page.pageSize}
+        </if>
+        <if test="query.orderBy != null">
+            order by ${query.orderBy}
+        </if>
+    </select>
+    <select id="countByQuery" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM MT_IMAGES
+        <include refid="condition" />
+    </select>
 </mapper>
